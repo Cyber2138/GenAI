@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, session, redirect, url_for
 from model import get_answer, get_chat, generate_text, summarization_data
 import numpy as np # Import the function to get chatbot answers
 
@@ -18,6 +18,12 @@ def signup():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+def logout():
+    # Clear the session to log out the user
+    session.clear()
+    # Redirect to the login page after logout
+    return redirect(url_for('login'))
 
 @app.route('/calculator')
 def calculator():
