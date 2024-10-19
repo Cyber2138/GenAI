@@ -1,11 +1,390 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock</title>
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Start your development with Creative Studio landing page.">
+        <meta name="author" content="Devcrud">
+        <title>Fin-Forge AI | Stocks</title>
+    
+        <!-- font icons -->
+        <link rel="stylesheet" href="../static/vendors/themify-icons/css/themify-icons.css">
+    
+        <!-- Bootstrap + Creative Studio main styles -->
+        <link rel="stylesheet" href="../static/css/creative-studio.css">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+     <style>
+
+        /* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('/static/imgs/header.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Apply blur effect to background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Darker overlay for contrast */
+    backdrop-filter: blur(20px); /* Blurred background */
+    z-index: -1; /* Ensure the overlay is behind the form */
+}
+
+.outer-container {
+    background-color: rgba(209, 205, 205, 0.56); /* Subtle background color */
+    border-radius: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+}
+
+.search-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.history-section {
+    flex: 1;
+    margin-left: 20px;
+}
+
+h1 {
+    color: #faf3f3;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus {
+    border-color: #6200ea;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+}
+
+button {
+    background: linear-gradient(135deg, #6200ea, rgb(233, 42, 74)) ;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #3700b3;
+    transform: translateY(-2px);
+}
+
+.stock-info {
+    margin-top: 20px;
+    display: none;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stock-info h2 {
+    color: #6200ea;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.stock-info p {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333;
+}
+
+.error-message {
+    color: red;
+    display: none;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.loader {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Styles for search history */
+.history-container {
+    margin-top: 30px;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+th {
+    background: linear-gradient(135deg, #6200ea, rgb(223, 43, 73));
+    color: white;
+    font-weight: 600;
+    padding: 20px 10px;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 15px 15px 0 0;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive design */
+@media (max-width: 800px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .search-section, .history-section {
+        margin: 0;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        color:  white;
+    }
+
+    .history-section {
+        max-height: none;
+    }
+}
+
+nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.btn-btn-primary {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s;
+}
+
+.btn-btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+
+
+
+     </style>
+        
+    </head>
 <body>
-    <h1>stocks</h1>
+    <nav>
+        <a class="btn btn-primary" href="/">Home</a>
+        <a class="btn btn-primary" href="/chatbot">Finbot</a>
+        <a class="btn btn-primary" href="/stock">Stocks</a>
+        <a class="btn btn-primary" href="/dashboard">Tracker</a>
+        <a class="btn btn-primary" href="/logout">Logout</a>
+    </nav>
+    <div class="outer-container">
+        <div class="main-container">
+          <div class="search-section">
+            <h1>Live Stock Price Search</h1>
+            <div class="search-bar">
+              <input type="text" id="companyInput" placeholder="Enter stock symbol or company name (e.g. AAPL or Apple)" onkeydown="if (event.key === 'Enter') searchStock();" />
+            </div>
+            <button onclick="searchStock()">Search</button>
+            
+            <img id="loader" class="loader" src="https://i.imgur.com/LLF5iyg.gif" alt="Loading..." width="30" height="30" />
+    
+            <div class="stock-info" id="stockInfo">
+              <h2 id="companyName"></h2>
+              <p>Current Price: $<span id="stockPrice"></span></p>
+              <p>Opening Price: $<span id="openPrice"></span></p>
+              <p>Previous Close: $<span id="closePrice"></span></p>
+            </div>
+    
+            <div class="error-message" id="errorMessage">Company not found. Please try again.</div>
+          </div>
+    
+    <!-- Search History Table -->
+    <div class="history-section">
+      <h2>Search History</h2>
+      <div class="history-container">
+        <table id="historyTable">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Current Price</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <!-- Search history entries will go here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+
+  <script>
+    // Top 20 stocks with current prices
+    const stocks = [
+      { symbol: 'AAPL', name: 'Apple Inc.', price: 175.08, open: 173.00, close: 174.55 },
+      { symbol: 'MSFT', name: 'Microsoft Corporation', price: 340.45, open: 338.50, close: 339.90 },
+      { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 139.45, open: 138.70, close: 139.00 },
+      { symbol: 'AMZN', name: 'Amazon.com, Inc.', price: 142.78, open: 141.50, close: 142.50 },
+      { symbol: 'FB', name: 'Meta Platforms, Inc.', price: 299.50, open: 297.00, close: 298.20 },
+      { symbol: 'TSLA', name: 'Tesla, Inc.', price: 265.42, open: 263.00, close: 264.20 },
+      { symbol: 'BRK.A', name: 'Berkshire Hathaway Inc.', price: 500300.00, open: 499000.00, close: 500000.00 },
+      { symbol: 'JNJ', name: 'Johnson & Johnson', price: 164.55, open: 163.00, close: 163.80 },
+      { symbol: 'V', name: 'Visa Inc.', price: 245.10, open: 243.00, close: 244.90 },
+      { symbol: 'PG', name: 'Procter & Gamble Co.', price: 143.25, open: 142.00, close: 143.00 },
+      { symbol: 'NFLX', name: 'Netflix, Inc.', price: 458.33, open: 455.00, close: 457.00 },
+      { symbol: 'NVDA', name: 'NVIDIA Corporation', price: 455.09, open: 450.00, close: 454.00 },
+      { symbol: 'DIS', name: 'The Walt Disney Company', price: 97.76, open: 96.00, close: 96.90 },
+      { symbol: 'INTC', name: 'Intel Corporation', price: 35.85, open: 35.50, close: 35.70 },
+      { symbol: 'CMCSA', name: 'Comcast Corporation', price: 39.75, open: 39.00, close: 39.50 },
+      { symbol: 'PEP', name: 'PepsiCo, Inc.', price: 179.50, open: 178.00, close: 179.00 },
+      { symbol: 'KO', name: 'The Coca-Cola Company', price: 58.34, open: 57.50, close: 57.80 },
+      { symbol: 'MRK', name: 'Merck & Co., Inc.', price: 112.15, open: 111.00, close: 111.80 },
+      { symbol: 'XOM', name: 'Exxon Mobil Corporation', price: 106.80, open: 105.00, close: 106.00 },
+      { symbol: 'CSCO', name: 'Cisco Systems, Inc.', price: 51.90, open: 51.00, close: 51.40 },
+      { symbol: 'T', name: 'AT&T Inc.', price: 14.85, open: 14.50, close: 14.75 },
+    ];
+
+    const history = [];
+
+    function searchStock() {
+      const input = document.getElementById('companyInput').value.toUpperCase();
+      const stock = stocks.find(stock => stock.symbol === input || stock.name.toUpperCase().includes(input));
+
+      const loader = document.getElementById('loader');
+      const stockInfo = document.getElementById('stockInfo');
+      const errorMessage = document.getElementById('errorMessage');
+      const historyBody = document.getElementById('historyBody');
+      
+      loader.style.display = 'block'; // Show loader
+      stockInfo.style.display = 'none'; // Hide stock info
+      errorMessage.style.display = 'none'; // Hide error message
+
+      setTimeout(() => {
+        loader.style.display = 'none'; // Hide loader
+        if (stock) {
+          // Update stock info
+          document.getElementById('companyName').innerText = stock.name;
+          document.getElementById('stockPrice').innerText = stock.price.toFixed(2);
+          document.getElementById('openPrice').innerText = stock.open.toFixed(2);
+          document.getElementById('closePrice').innerText = stock.close.toFixed(2);
+          stockInfo.style.display = 'block'; // Show stock info
+          
+          // Add to history
+          const timestamp = new Date().toLocaleString();
+          history.push({ symbol: stock.symbol, price: stock.price.toFixed(2), timestamp });
+          updateHistoryTable(history);
+        } else {
+          errorMessage.style.display = 'block'; // Show error message
+        }
+      }, 1000); // Simulate a delay for loading
+    }
+
+    function updateHistoryTable(history) {
+      const historyBody = document.getElementById('historyBody');
+      historyBody.innerHTML = ''; // Clear existing history
+
+      // Populate history table
+      history.forEach(entry => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${entry.symbol}</td>
+          <td>$${entry.price}</td>
+          <td>${entry.timestamp}</td>
+        `;
+        historyBody.appendChild(row);
+      });
+    }
+  </script>
+
 </body>
 </html>
