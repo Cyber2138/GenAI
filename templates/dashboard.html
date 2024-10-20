@@ -117,18 +117,17 @@
 
 
 
-
-    
-        .button-container {
+/* Container for buttons */
+.button-container {
     display: flex; /* Use flexbox for alignment */
     gap: 30px; /* Space between buttons */
-    justify-content: center; /* Center buttons (optional) */
-    margin-top: 50px; /* Optional: space from the top of the page */
+    justify-content: center; /* Center buttons */
+    margin-top: 28px; /* Space from the top of the page */
 }
 
+/* Common button styling */
 button {
-    padding: 15px 25px; /* Padding inside button */
-    background-color: #e8224a; /* Button background color */
+    padding: 15px 25px; /* Increased padding for larger buttons */
     color: white; /* Button text color */
     border: none;
     border-radius: 30px; /* Rounded corners */
@@ -138,64 +137,159 @@ button {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow */
 }
 
-button:hover {
-    background-color: #e64868; /* Darker red on hover */
+/* Submit Button Specific Styles */
+.submit-btn {
+    background: linear-gradient(135deg, rgb(157, 2, 157), rgb(225, 10, 46)); /* Gradient background for Submit */
+    color: white; /* Optional: text color */
+    border: none; /* Optional: remove border */
+    padding: 10px 20px; /* Optional: padding for the button */
+    border-radius: 25px; /* Optional: rounded corners */
+    cursor: pointer; /* Optional: pointer cursor on hover */
+    transition: background 0.3s; /* Optional: smooth transition */
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, rgb(216, 32, 63), rgb(184, 33, 184)); /* Inverse gradient on hover */
+}
+
+/* Insights Button Specific Styles */
+.insights-btn {
+    background: linear-gradient(135deg, rgb(3, 0, 15), rgb(27, 4, 158)); /* Gradient background for Submit */
+    color: white; /* Optional: text color */
+    border: none; /* Optional: remove border */
+    padding: 10px 20px; /* Optional: padding for the button */
+    border-radius: 25px; /* Optional: rounded corners */
+    cursor: pointer; /* Optional: pointer cursor on hover */
+    transition: background 0.3s; /* Optional: smooth transition */
+}
+
+.insights-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        gap: 20px; /* Reduced gap between buttons */
+    }
 
-
-
+    button {
+        width: 100%; /* Make buttons take full width */
+        padding: 12px; /* Adjust padding for smaller screens */
+    }
+}
 
 
     
-        /* Charts container */
-        .charts {
-    display: flex; /* Change to flex for side-by-side alignment */
-    flex-direction: column; /* Stack items vertically */
-    padding: 20px; /* Padding around charts */
-}
 
 table {
     width: 100%; /* Full width of the container */
     margin-bottom: 20px; /* Space below the table */
-    border-collapse: collapse; /* Collapse borders */
+    border-collapse: collapse; /* Collapse borders for a unified look */
     background: rgba(255, 255, 255, 0.8); /* Light background for contrast */
-    border-radius: 30px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for table */
+    border-radius: 20px; /* Rounded corners for the table */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for the table */
+    overflow: hidden; /* Prevent rounding issues at corners */
 }
 
 th, td {
-    padding: 10px; /* Padding for cells */
-    text-align: center; /* Center text */
-    border-bottom: 1px solid #ddd; /* Bottom border for rows */
-    border-radius: 15px;
+    padding: 15px; /* Increased padding for better spacing */
+    text-align: center; /* Center text for uniformity */
+    border-bottom: 1px solid #ddd; /* Light bottom border for rows */
 }
 
 th {
     background-color: #e8224a; /* Header background color */
     color: white; /* Header text color */
+    font-weight: bold; /* Make header text bold */
 }
 
 tbody tr:hover {
-    background-color: #f1f1f1; /* Highlight on hover */
+    background-color: #f1f1f1; /* Highlight on hover for better visibility */
 }
 
-/* Chart canvas styles */
+/* Optional: Add distinct borders between rows */
+tr {
+    border: 1px solid #ddd; /* Add a light border for rows */
+}
+
+/* Optional: Make header cells stand out */
+th:first-child, td:first-child {
+    border-top-left-radius: 20px; /* Rounded corner for top-left */
+    border-bottom-left-radius: 20px; /* Rounded corner for bottom-left */
+}
+
+th:last-child, td:last-child {
+    border-top-right-radius: 20px; /* Rounded corner for top-right */
+    border-bottom-right-radius: 20px; /* Rounded corner for bottom-right */
+}
+
+/* Overall charts container */
+.chart {
+    display: flex; /* Use flexbox for the charts container */
+    flex-direction: column; /* Stack items vertically */
+    padding: 20px; /* Padding around charts */
+    gap: 20px; /* Space between the table and chart container */
+}
+
+/* Chart container styles */
 .chart-container {
     display: flex; /* Flexbox for charts */
     justify-content: space-between; /* Space out charts evenly */
+    margin-top: 20px; /* Space above charts */
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
+/* Styles for each canvas element */
 canvas {
     flex: 1; /* Allow charts to take equal space */
-    height: 300px; /* Set a fixed height for the charts */
+    height: 500px; /* Set a fixed height for the charts */
     margin: 0 10px; /* Space between charts */
     background: #fff; /* Background color for charts */
     border-radius: 30px; /* Rounded corners for charts */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow for charts */
-    max-width: calc(50% - 20px); /* Ensure two charts fit side by side with margin */
+    min-width: 0; /* Prevent overflow issues */
+    display: block; /* Ensure the canvas behaves like a block element */
+    min-height: 0px;
 }
+
+/* Ensures the chart container maintains equal sizes */
+
+
+#barChart {
+    height: 430px; /* Height for the bar chart */
+    width: 480px; /* Width for the bar chart */
+}
+
+/* Specific styles for the donut chart */
+#donutChart {
+    height: 430px; /* Height for the donut chart */
+    width: 480px; /* Width for the donut chart */
+    margin-bottom: auto; /* Margin bottom for the donut chart */
+}
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    canvas {
+        margin: 0 5px; /* Adjust margin for smaller screens */
+    }
+
+      /* Adjust the height for responsive design */
+      #barChart {
+        height: 100px; /* Height for smaller screens */
+        width: 100%; /* Allow full width on smaller screens */
+    }
+    
+    #donutChart {
+        height: 200px; /* Height for smaller screens */
+        width: 100%; /* Allow full width on smaller screens */
+    }
+}
+
 
 nav {
     position: absolute;
@@ -220,6 +314,8 @@ nav {
     background-color: #0056b3;
     transform: translateY(-2px);
 }
+
+
 
 
 </style>
@@ -255,8 +351,11 @@ nav {
                     <option value="November">November</option>
                     <option value="December">December</option>
                 </select>
-                <button type="submit">Submit</button>
-                <button type="submit">Insights</button>
+                <div class="button-container">
+                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="button" class="insights-btn">Insights</button>
+                </div>
+                
             </form>
         </div>
     
@@ -268,6 +367,7 @@ nav {
                         <th>Month</th>
                         <th>Income</th>
                         <th>Expenditure</th>
+                        <th>Net Profit/Loss</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -276,9 +376,12 @@ nav {
             </table>
     
             <!-- Chart canvases -->
-            <div class="chart-container">
-                <canvas id="donutChart"></canvas>
-                <canvas id="barChart"></canvas>
+            
+            <div class="charts">
+                <div class="chart-container">
+                    <canvas id="donutChart"></canvas>
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -286,17 +389,24 @@ nav {
     
     
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    
+
     <script>
         const trackerForm = document.getElementById('tracker-form');
         const incomeInput = document.getElementById('income');
         const expenditureInput = document.getElementById('expenditure');
         const monthInput = document.getElementById('month');
         const dataTableBody = document.querySelector('#data-table tbody');
-        
+    
         let income = 0;
         let expenditure = 0;
-        
+    
+        // Arrays to store the income and expenditure per month
+        let incomePerMonth = {};
+        let expenditurePerMonth = {};
+    
         // Set up the donut and bar charts
         const donutCtx = document.getElementById('donutChart').getContext('2d');
         const barCtx = document.getElementById('barChart').getContext('2d');
@@ -313,7 +423,7 @@ nav {
                 }]
             },
             options: {
-                responsive: true,
+                responsive: false, // Disable responsive resizing
                 plugins: {
                     legend: {
                         position: 'top',
@@ -321,19 +431,26 @@ nav {
                 }
             }
         });
-        
+    
         const barChart = new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['Income', 'Expenditure'],
-                datasets: [{
-                    label: 'Amounts',
-                    data: [income, expenditure],
-                    backgroundColor: ['#28a745', '#dc3545'],
-                }]
+                labels: [], // Months will be added dynamically
+                datasets: [
+                    {
+                        label: 'Income',
+                        backgroundColor: '#28a745',
+                        data: [], // Income data per month
+                    },
+                    {
+                        label: 'Expenditure',
+                        backgroundColor: '#dc3545',
+                        data: [], // Expenditure data per month
+                    }
+                ]
             },
             options: {
-                responsive: true,
+                responsive: false, // Disable responsive resizing
                 scales: {
                     y: {
                         beginAtZero: true
@@ -341,7 +458,7 @@ nav {
                 }
             }
         });
-        
+    
         // Handle form submission
         trackerForm.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -370,14 +487,9 @@ nav {
             income += amountIncome;
             expenditure += amountExpenditure;
     
-            // Update charts
-            donutChart.data.datasets[0].data[0] = income;
-            donutChart.data.datasets[0].data[1] = expenditure;
-            donutChart.update();
-    
-            barChart.data.datasets[0].data[0] = income;
-            barChart.data.datasets[0].data[1] = expenditure;
-            barChart.update();
+            // Update or insert data for the month
+            incomePerMonth[month] = (incomePerMonth[month] || 0) + amountIncome;
+            expenditurePerMonth[month] = (expenditurePerMonth[month] || 0) + amountExpenditure;
     
             // Add new data to the table
             const existingRow = Array.from(dataTableBody.rows).find(row => row.cells[0].innerText === month);
@@ -385,18 +497,41 @@ nav {
                 // Update existing row if month already exists
                 existingRow.cells[1].innerText = (parseFloat(existingRow.cells[1].innerText) + amountIncome).toFixed(2);
                 existingRow.cells[2].innerText = (parseFloat(existingRow.cells[2].innerText) + amountExpenditure).toFixed(2);
+                existingRow.cells[3].innerText = (parseFloat(existingRow.cells[3].innerText) + (amountIncome - amountExpenditure)).toFixed(2);
             } else {
                 // Create new row
                 const newRow = dataTableBody.insertRow();
                 newRow.insertCell(0).innerText = month;
                 newRow.insertCell(1).innerText = amountIncome.toFixed(2);
                 newRow.insertCell(2).innerText = amountExpenditure.toFixed(2);
+                newRow.insertCell(3).innerText = (amountIncome - amountExpenditure).toFixed(2);
             }
     
             // Reset form
             trackerForm.reset();
         });
+    
+        // Handle insights button click
+        document.querySelector('.insights-btn').addEventListener('click', function () {
+            // Show the charts
+            document.getElementById('donutChart').style.display = 'block';
+            document.getElementById('barChart').style.display = 'block';
+    
+            // Update donut chart (total income vs expenditure)
+            donutChart.data.datasets[0].data[0] = income;
+            donutChart.data.datasets[0].data[1] = expenditure;
+            donutChart.update();
+    
+            // Update bar chart (monthly income and expenditure)
+            barChart.data.labels = Object.keys(incomePerMonth);
+            barChart.data.datasets[0].data = Object.values(incomePerMonth);
+            barChart.data.datasets[1].data = Object.values(expenditurePerMonth);
+            barChart.update();
+        });
     </script>
+    
+    
+    
     
         
 </body>
